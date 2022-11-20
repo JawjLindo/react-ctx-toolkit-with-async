@@ -1031,11 +1031,15 @@ const hr = (e) => (n, o) => n(e(o)), Pr = (e) => {
 }, mr = (e) => {
   const r = ne(`${e}/pending`), n = ne(`${e}/fulfilled`), o = ne(`${e}/rejected`);
   return { pending: r, fulfilled: n, rejected: o };
-}, br = (e, r) => (o, a) => {
-  o(e.pending()), r(a).then((u) => o(e.fulfilled(u))).catch((u) => o(e.rejected(u)));
-}, _r = (e, r) => {
-  const n = mr(e), o = br(n, r);
-  return [n, o];
+}, br = (e, r, n) => (a, u) => {
+  a(e.pending()), r(u).then((s) => a(e.fulfilled(s))).catch((s) => a(e.rejected(n(s))));
+}, _r = (e, r, n) => {
+  const o = mr(e), a = br(
+    o,
+    r,
+    n
+  );
+  return [o, a];
 }, gr = (e, r, n, o = []) => {
   const a = me(r), u = Xt(() => a.current, []), s = me(
     (O, g) => a.current = e(O, g)

@@ -6,5 +6,5 @@ declare type AsyncAction<Returned extends any = any> = {
     fulfilled: PayloadActionCreator<Returned>;
     rejected: PayloadActionCreator<string>;
 };
-export declare const createAsyncThunk: <Returned extends unknown = any, Arg extends unknown = undefined>(actionPrefix: string, func: (arg: Arg) => Promise<Returned>) => [action: AsyncAction<Returned>, creator: ActionCreator<Arg, React.Dispatch<any>>];
+export declare const createAsyncThunk: <Returned extends unknown = any, Arg extends unknown = undefined>(actionPrefix: string, func: (arg: Arg) => Promise<Returned>, errorHandler: (reason: any) => string) => [action: AsyncAction<Returned>, creator: ActionCreator<Arg, React.Dispatch<any>>];
 export {};
