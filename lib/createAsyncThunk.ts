@@ -23,7 +23,7 @@ const createAsyncActionCreator = <
 >(
   asyncAction: AsyncAction,
   func: (arg: Arg) => Promise<FuncRet>,
-  errorHandler: (reason: any) => string
+  errorHandler?: (reason: any) => string
 ): ActionCreator<Arg> => {
   type TPending = ReturnType<typeof asyncAction.pending>;
   type TFulfilled = ReturnType<typeof asyncAction.fulfilled>;
@@ -37,7 +37,11 @@ const createAsyncActionCreator = <
     dispatch(asyncAction.pending());
     func(arg)
       .then((result) => dispatch(asyncAction.fulfilled(result)))
-      .catch((reason) => dispatch(asyncAction.rejected(errorHandler(reason))));
+      .catch((reason) =>
+        dispatch(
+          asyncAction.rejected(errorHandler ? errorHandler(reason) : reason)
+        )
+      );
   };
 
   return asyncActionCreator;
@@ -49,7 +53,7 @@ export const createAsyncThunk = <
 >(
   actionPrefix: string,
   func: (arg: Arg) => Promise<Returned>,
-  errorHandler: (reason: any) => string
+  errorHandler?: (reason: any) => string
 ): [action: AsyncAction<Returned>, creator: ActionCreator<Arg>] => {
   const action = createAsyncAction<Returned>(actionPrefix);
   const creator = createAsyncActionCreator<Returned, Arg>(
