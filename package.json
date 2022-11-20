@@ -1,6 +1,6 @@
 {
   "name": "react-ctx-toolkit-with-async",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Adding async wrappers onto react-ctx-toolkit",
   "main": "./dist/index.js",
   "repository": "https://github.com/JawjLindo/react-ctx-toolkit-with-async",
